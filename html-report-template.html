@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Accessibility Report</title>
+    <style>
+        .badge-success {
+            background-color: green;
+        }
+        .badge-notice {
+            background-color:yellow;
+            color: black
+        }
+        .badge-warning {
+            background-color: orange;
+            color: black
+        }
+        .badge-error {
+            background-color: red;
+            color: black
+        }
+        .error-div span {
+            padding: 10px;
+        }
+        div {
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Accessibility Error Report</h1>
+        <div style="text-align: center;">
+            <div class="col-lg-4">Errors: <span class="badge badge-error">{{errors}}</span></div>
+            <div class="col-lg-4">Warnings: <span class="badge badge-warning">{{warnings}}</span></div>
+            <div class="col-lg-4">Notices: <span class="badge badge-notice">{{notices}}</span></div>
+        </div>
+        <hr>
+        <div class="row error-div">
+            <span class="col-lg-1">No.</span>
+            <span class="col-lg-7">File Path</span>
+            <span class="col-lg-1">Error</span>
+            <span class="col-lg-1">Warning</span>
+            <span class="col-lg-1 col-lg-pull-1 col-lg-offset-1">Notice</span>
+        </div>
+
+        {{#each files as |file|}}
+        <div>
+            <div class="row error-div">
+                <span class="col-lg-1">{{file.index}}</span>
+                <span class="col-lg-7">{{file.name}}</span>
+                <span class="col-lg-1">{{file.errors}}</span>
+                <span class="col-lg-1">{{file.warnings}}</span>
+                <span class="col-lg-1">{{file.notices}}</span>
+                <span class="col-lg-1"><button id="button{{file.index}}" onclick="expandTable({{file.index}})">Expand</button></span>
+            </div>
+            <div id="detail{{file.index}}" class="col-lg-12" style="display: none">
+                <div>
+                    <div class="col-lg-2"><strong>Severity</strong></div>
+                    <div class="col-lg-2"><strong>Issue</strong></div>
+                    <div class="col-lg-3"><strong>Description</strong></div>
+                    <div class="col-lg-4"><strong>Element</strong></div>
+                    <div class="col-lg-1"><strong>Pos</strong></div>
+                </div>
+                <br>
+                {{#each file.errorDetails as |errorDetail|}}
+                <div style="border: 1px black solid; display: flex;" class="col-lg-12">
+                    <div style="border-right: 1px black solid; display: -webkit-inline-box" class="col-lg-2">{{errorDetail.severity}}</div>
+                    <div style="border-right: 1px black solid; display: -webkit-inline-box; overflow-x: scroll;" class="col-lg-2">{{errorDetail.issue}}</div>
+                    <div style="border-right: 1px black solid; display: -webkit-inline-box" class="col-lg-3">{{errorDetail.description}}</div>
+                    <div style="border-right: 1px black solid; display: -webkit-inline-box; overflow-x: scroll;" class="col-lg-4">{{errorDetail.element}}</div>
+                    <div class="col-lg-1">
+                        <div>Line: {{errorDetail.position.lineNumber}}</div>
+                        <div>Col: {{errorDetail.position.columnNumber}}</div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+        <div style="position: fixed;right: 10px;bottom: 10px">
+            <button class="btn btn-primary" onclick="scrollToTop()" style="">Scroll top</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    function expandTable(id) {
+        let element = document.getElementById('detail'+id);
+        element.style.display = (element.style.display === 'none') ? 'block' : 'none';
+        document.getElementById('button'+id).textContent = (document.getElementById('button'+id).textContent === 'Expand') ?
+            'Collapse' : 'Expand';
+    }
+
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
+</script>
+
+</html>

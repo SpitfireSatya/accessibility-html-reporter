@@ -1,0 +1,32 @@
+{
+  "name": "accessibility-html-reporter",
+  "version": "1.0.0",
+  "description": "An html reporter for Accessibility which uses Access-sniff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpitfireSatya/accessibility-html-reporter.git"
+  },
+  "keywords": [
+    "accessibility",
+    "access-sniff",
+    "html",
+    "reporter",
+    "html-reporter"
+  ],
+  "author": "Spitfire",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpitfireSatya/accessibility-html-reporter/issues"
+  },
+  "homepage": "https://github.com/SpitfireSatya/accessibility-html-reporter#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "access-sniff": "^3.2.0",
+    "async": "^2.6.1",
+    "handlebars": "^4.0.11"
+  }
+}
